@@ -91,7 +91,7 @@ OneData <- function(n=10) {
 }
 
 simres <- NULL
-meths <- c("dr.mle","dr.cbps","dr.gbm","outcome.only","single.reg")
+meths <- c("dr.mle","outcome.only","single.reg")
 ptm <- proc.time()[3]
 for (i in 1:REP) {
   set.seed(9000+i)
@@ -99,31 +99,28 @@ for (i in 1:REP) {
   Data <- OneData(n=N)
   
   simres.i <- matrix(NA,nrow=length(meths),ncol=T_)
+  row.names(simres.i) <- meths
+  
+  res.mle <- OneEst(Data,T_,
+                    Lnames=paste0("L.",1:6),Treat_name="A",Outcome_name="Y",
+                    use.DR=TRUE,fit.ps="mle",return.data=TRUE)
+  simres.i["dr.mle",] <- unlist(res.mle$est)
   
   res <- OneEst(Data,T_,Lnames=paste0("L.",1:6),Treat_name="A",Outcome_name="Y",
-                use.DR=TRUE,fit.ps="mle")
-  simres.i[1,] <- unlist(res$est)
+                use.DR=FALSE,return.data=TRUE)
+  simres.i["outcome.only",] <- unlist(res$est)
+  rm(res)
   
-  res <- OneEst(Data,T_,Lnames=paste0("L.",1:6),Treat_name="A",Outcome_name="Y",
-                use.DR=TRUE,fit.ps="cbps")
-  simres.i[2,] <- unlist(res$est)
+  # remove all PS from the single regression model for the outcome
+  form.y <- res.mle$formulae[[2]]$Outcome
+  form.y <- paste0(as.character(form.y)[2],"~",paste(
+    grep("P_.",strsplit(as.character(form.y)[3],split=" [+] ")[[1]],
+         value=TRUE,invert=TRUE),collapse="+"))
+  fitY <- coef(lm(as.formula(form.y),data=res.mle$data.wide))
+  simres.i["single.reg",] <- fitY[sort(grep("A_.",names(fitY),value=TRUE))]
+  rm(form.y,fitY)
   
-  stm.gbm <- tryCatch(system.time(
-    res <- OneEst(Data,T_,Lnames=paste0("L.",1:6),Treat_name="A",Outcome_name="Y",
-                  use.DR=TRUE,fit.ps="gbm")
-  )[3], error=function(cond) return(NA))
-  if (!is.na(stm.gbm)) {
-    simres.i[3,] <- unlist(res$est)  
-  }
-  
-  res <- OneEst(Data,T_,Lnames=paste0("L.",1:6),Treat_name="A",Outcome_name="Y",
-                use.DR=FALSE)
-  simres.i[4,] <- unlist(res$est)
-  
-  fitY <- coef(res$fitted[[T_]]$Outcome)
-  simres.i[5,] <- fitY[sort(grep("A_.",names(fitY),value=TRUE))]
-  
-  simres[[i]] <- data.frame(meths,simres.i)
+  simres[[i]] <- data.frame("meths"=row.names(simres.i),simres.i)
   
   cat(i,"|",round((proc.time()[3]-ptm)/60),"mins \n")
 }
@@ -154,9 +151,9 @@ setkey(simres.dt)
 # number of simulations
 simres.dt[, .N, by=eval(key(simres.dt)[1:3])][,unique(N)]
 
-# number of sims that failed to converge
+# check number of sims that converged
 simres.dt[,lapply(.SD, function(x) sum(!is.na(x))),
-          by=eval(key(simres.dt)[1:3]),.SDcols="X1"][X1<1000]
+          by=eval(key(simres.dt)[1:3]),.SDcols="X1"]
 
 # difference with true value
 simres.dt[, bias.X1 := X1 - 0.7]
@@ -179,8 +176,6 @@ setnames(res.table[["mse"]],c("bias.X1","bias.X2"),c("mse.X1","mse.X2"))
 
 # relabel entries
 res.table[, kc := kc!=0]
-res.table[meths=="dr.cbps", meths := "DR-CBPS"]
-res.table[meths=="dr.gbm", meths := "DR-GBM"]
 res.table[meths=="dr.mle", meths := "DR-MLE"]
 res.table[meths=="outcome.only", meths := "Outcome only"]
 res.table[meths=="single.reg", meths := "Single regression"]

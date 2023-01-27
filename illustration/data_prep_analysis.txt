@@ -12,40 +12,87 @@
 4:    4 6.415413
 5:    5 6.435248
 6:    6 6.428279
-Classes ‘data.table’ and 'data.frame':	11242 obs. of  8 variables:
+       id t gender age well_being_1 well_being_2 music_time films_time tv_time
+1: pp_985 0   Male  26            6            3          4        4.0     5.0
+2: pp_985 1   Male  26            8            3          4        4.5     4.0
+3: pp_985 2   Male  26            6            3          4        3.0     3.5
+4: pp_985 3   Male  26            8            2          4        0.0     5.5
+5: pp_985 4   Male  26            4            2          6        4.0     5.0
+   games_time magazines_time audiobooks_time books_used life_satisfaction
+1:        0.5              0      0.01666667          0               5.0
+2:        0.0              0      0.00000000          0               7.0
+3:        0.0              0      0.00000000          0               6.0
+4:        0.0              0      0.00000000          0               7.0
+5:        0.0              0      0.00000000          0               5.5
+       id t gender       age well_being_1 well_being_2 music_time films_time
+1: pp_985 0   Male -20.94535            6            3          4        4.0
+2: pp_985 1   Male -20.94535            8            0          4        4.5
+3: pp_985 2   Male -20.94535            6            0          4        3.0
+4: pp_985 3   Male -20.94535            8           -1          4        0.0
+5: pp_985 4   Male -20.94535            4           -1          6        4.0
+   tv_time games_time magazines_time audiobooks_time books_used
+1:     5.0        0.5              0      0.01666667          0
+2:     4.0        0.0              0      0.00000000          0
+3:     3.5        0.0              0      0.00000000          0
+4:     5.5        0.0              0      0.00000000          0
+5:     5.0        0.0              0      0.00000000          0
+   life_satisfaction
+1:               5.0
+2:               7.0
+3:               6.0
+4:               7.0
+5:               5.5
+Classes ‘data.table’ and 'data.frame':	11242 obs. of  14 variables:
  $ id               : Factor w/ 3863 levels "pp_1","pp_10",..: 2 2 2 2 2 3 3 3 3 3 ...
  $ t                : num  0 1 2 3 4 0 1 2 3 4 ...
  $ gender           : Factor w/ 3 levels "Male","Female",..: 2 2 2 2 2 2 2 2 2 2 ...
- $ age              : num  27 27 27 27 27 32 32 32 32 32 ...
+ $ age              : num  -19.9 -19.9 -19.9 -19.9 -19.9 ...
  $ well_being_1     : num  4 5 4 3 4 NA NA NA 6 4 ...
- $ well_being_2     : num  1 3 3 3 2 NA NA NA 2 2 ...
+ $ well_being_2     : num  1 2 2 2 1 NA NA NA NA NA ...
+ $ music_time       : num  5 5 5.5 4 5 ...
+ $ films_time       : num  6.5 6.5 6.5 6.5 3 ...
+ $ tv_time          : num  0 8 4 2 6 NA NA NA 2 2 ...
+ $ games_time       : num  2 2 1 1 1.5 NA NA NA 14 11.5 ...
+ $ magazines_time   : num  2 1.5 1 0 2 ...
+ $ audiobooks_time  : num  0 0 0 0 0 NA NA NA 0 0 ...
  $ books_used       : num  1 1 1 0 1 NA NA NA 1 1 ...
  $ life_satisfaction: num  6.5 5.5 5.5 4.5 4.5 NA NA NA 6.5 5 ...
  - attr(*, ".internal.selfref")=<externalptr> 
- - attr(*, "sorted")= chr [1:8] "id" "t" "gender" "age" ...
-       id              t            gender          age      well_being_1   
- pp_100 :    6   Min.   :0.000   Male  :5412   Min.   :16   Min.   : 0.000  
- pp_1002:    6   1st Qu.:1.000   Female:5824   1st Qu.:35   1st Qu.: 5.000  
- pp_1003:    6   Median :2.000   Other :   6   Median :48   Median : 7.000  
- pp_1007:    6   Mean   :2.185                 Mean   :47   Mean   : 6.299  
- pp_1009:    6   3rd Qu.:3.000                 3rd Qu.:59   3rd Qu.: 8.000  
- pp_101 :    6   Max.   :5.000                 Max.   :87   Max.   :10.000  
- (Other):11206                                              NA's   :257     
-  well_being_2      books_used     life_satisfaction
- Min.   : 0.000   Min.   :0.0000   Min.   : 0.000   
- 1st Qu.: 3.000   1st Qu.:0.0000   1st Qu.: 5.000   
- Median : 5.000   Median :1.0000   Median : 7.000   
- Mean   : 5.578   Mean   :0.5062   Mean   : 6.405   
- 3rd Qu.: 8.000   3rd Qu.:1.0000   3rd Qu.: 8.000   
- Max.   :10.000   Max.   :1.0000   Max.   :10.000   
- NA's   :257      NA's   :257      NA's   :257      
-       id t gender age well_being_1 well_being_2 books_used life_satisfaction
-1: pp_266 0   Male  60            7            2          0               6.5
-2: pp_266 1   Male  60            7            2          0               8.5
-3: pp_266 2   Male  60            6            5          0               7.0
-4: pp_266 3   Male  60            6            3          0               5.5
-5: pp_266 4   Male  60            8            3          0               6.0
-6: pp_266 5   Male  60            8            3          0               7.0
+ - attr(*, "sorted")= chr [1:3] "id" "t" "gender"
+ - attr(*, "index")= int(0) 
+  ..- attr(*, "__t")= int [1:11242] 1 6 12 15 21 27 30 36 39 45 ...
+       id              t            gender          age           
+ pp_100 :    6   Min.   :0.000   Male  :5412   Min.   :-30.94535  
+ pp_1002:    6   1st Qu.:1.000   Female:5824   1st Qu.:-11.94535  
+ pp_1003:    6   Median :2.000   Other :   6   Median :  1.05465  
+ pp_1007:    6   Mean   :2.185                 Mean   :  0.05145  
+ pp_1009:    6   3rd Qu.:3.000                 3rd Qu.: 12.05465  
+ pp_101 :    6   Max.   :5.000                 Max.   : 40.05465  
+ (Other):11206                                                    
+  well_being_1     well_being_2       music_time         films_time    
+ Min.   : 0.000   Min.   :-10.000   Min.   : 0.00000   Min.   : 0.000  
+ 1st Qu.: 5.000   1st Qu.:  0.000   1st Qu.: 0.06667   1st Qu.: 0.000  
+ Median : 7.000   Median :  1.000   Median : 2.00000   Median : 2.000  
+ Mean   : 6.299   Mean   :  1.409   Mean   : 2.28329   Mean   : 2.325  
+ 3rd Qu.: 8.000   3rd Qu.:  3.000   3rd Qu.: 3.16667   3rd Qu.: 3.000  
+ Max.   :10.000   Max.   : 10.000   Max.   :22.21667   Max.   :22.250  
+ NA's   :257      NA's   :466       NA's   :257        NA's   :257     
+    tv_time         games_time      magazines_time    audiobooks_time  
+ Min.   : 0.000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000  
+ 1st Qu.: 1.000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000  
+ Median : 2.500   Median : 0.0000   Median : 0.0000   Median : 0.0000  
+ Mean   : 3.245   Mean   : 0.9805   Mean   : 0.2429   Mean   : 0.1641  
+ 3rd Qu.: 4.500   3rd Qu.: 1.0000   3rd Qu.: 0.0000   3rd Qu.: 0.0000  
+ Max.   :22.000   Max.   :22.0000   Max.   :20.0000   Max.   :20.0000  
+ NA's   :257      NA's   :257       NA's   :257       NA's   :257      
+   books_used     life_satisfaction
+ Min.   :0.0000   Min.   : 0.000   
+ 1st Qu.:0.0000   1st Qu.: 5.000   
+ Median :1.0000   Median : 7.000   
+ Mean   :0.5062   Mean   : 6.405   
+ 3rd Qu.:1.0000   3rd Qu.: 8.000   
+ Max.   :1.0000   Max.   :10.000   
+ NA's   :257      NA's   :257      
 T = 5 ; N = 2159 ; dropped = 185 ; complete = 1974 
    t        V1
 1: 0 0.4777102
@@ -58,76 +105,67 @@ T = 5
 [[1]]
                 books_used_.0          age_.0:books_used_.0 
                         -0.39                         -0.01 
-    wb2_mean_.0:books_used_.0 well_being_2_.0:books_used_.0 
-                         0.02                         -0.03 
+well_being_2_.0:books_used_.0 
+                         0.03 
 
 [[2]]
                 books_used_.1          age_.0:books_used_.1 
-                        -0.28                          0.00 
-    wb2_mean_.0:books_used_.1 well_being_2_.0:books_used_.1 
-                         0.05                          0.10 
-well_being_2_.1:books_used_.1 
-                        -0.08 
+                        -0.22                          0.00 
+well_being_2_.0:books_used_.1 well_being_2_.1:books_used_.1 
+                         0.04                         -0.08 
 
 [[3]]
                 books_used_.2          age_.0:books_used_.2 
-                         0.00                          0.00 
-    wb2_mean_.0:books_used_.2 well_being_2_.0:books_used_.2 
-                         0.00                         -0.01 
-well_being_2_.1:books_used_.2 well_being_2_.2:books_used_.2 
-                        -0.10                          0.03 
+                         0.04                          0.00 
+well_being_2_.0:books_used_.2 well_being_2_.1:books_used_.2 
+                         0.00                         -0.05 
+well_being_2_.2:books_used_.2 
+                         0.04 
 
 [[4]]
                 books_used_.3          age_.0:books_used_.3 
-                         0.05                          0.01 
-    wb2_mean_.0:books_used_.3 well_being_2_.0:books_used_.3 
-                        -0.02                          0.01 
-well_being_2_.1:books_used_.3 well_being_2_.2:books_used_.3 
-                         0.14                          0.10 
-well_being_2_.3:books_used_.3 
-                         0.02 
+                         0.02                          0.01 
+well_being_2_.0:books_used_.3 well_being_2_.1:books_used_.3 
+                        -0.02                          0.02 
+well_being_2_.2:books_used_.3 well_being_2_.3:books_used_.3 
+                         0.05                         -0.01 
 
 [[5]]
                 books_used_.4          age_.0:books_used_.4 
-                         0.16                          0.00 
-    wb2_mean_.0:books_used_.4 well_being_2_.0:books_used_.4 
-                        -0.02                         -0.09 
-well_being_2_.1:books_used_.4 well_being_2_.2:books_used_.4 
-                        -0.02                          0.05 
-well_being_2_.3:books_used_.4 well_being_2_.4:books_used_.4 
-                         0.04                          0.02 
+                         0.15                          0.00 
+well_being_2_.0:books_used_.4 well_being_2_.1:books_used_.4 
+                        -0.03                          0.05 
+well_being_2_.2:books_used_.4 well_being_2_.3:books_used_.4 
+                        -0.01                         -0.01 
+well_being_2_.4:books_used_.4 
+                         0.03 
 
                                2.5% 97.5%
-books_used_.0                 -0.85  0.07
+books_used_.0                 -0.78 -0.02
 age_.0:books_used_.0          -0.02  0.00
-wb2_mean_.0:books_used_.0     -0.05  0.09
-well_being_2_.0:books_used_.0 -0.14  0.07
-books_used_.1                 -0.91  0.35
-age_.0:books_used_.1          -0.02  0.02
-wb2_mean_.0:books_used_.1     -0.04  0.14
-well_being_2_.0:books_used_.1 -0.07  0.27
-well_being_2_.1:books_used_.1 -0.27  0.08
-books_used_.2                 -0.67  0.57
+well_being_2_.0:books_used_.0 -0.03  0.09
+books_used_.1                 -0.75  0.29
+age_.0:books_used_.1          -0.02  0.01
+well_being_2_.0:books_used_.1 -0.04  0.12
+well_being_2_.1:books_used_.1 -0.18  0.03
+books_used_.2                 -0.54  0.54
 age_.0:books_used_.2          -0.02  0.02
-wb2_mean_.0:books_used_.2     -0.09  0.11
-well_being_2_.0:books_used_.2 -0.14  0.15
-well_being_2_.1:books_used_.2 -0.24  0.06
-well_being_2_.2:books_used_.2 -0.12  0.17
-books_used_.3                 -0.43  0.57
+well_being_2_.0:books_used_.2 -0.09  0.09
+well_being_2_.1:books_used_.2 -0.16  0.04
+well_being_2_.2:books_used_.2 -0.06  0.15
+books_used_.3                 -0.46  0.54
 age_.0:books_used_.3           0.00  0.03
-wb2_mean_.0:books_used_.3     -0.10  0.05
-well_being_2_.0:books_used_.3 -0.15  0.15
-well_being_2_.1:books_used_.3 -0.03  0.24
-well_being_2_.2:books_used_.3 -0.06  0.22
-well_being_2_.3:books_used_.3 -0.15  0.15
-books_used_.4                 -0.33  0.60
-age_.0:books_used_.4          -0.01  0.01
-wb2_mean_.0:books_used_.4     -0.09  0.05
-well_being_2_.0:books_used_.4 -0.22  0.04
-well_being_2_.1:books_used_.4 -0.14  0.18
-well_being_2_.2:books_used_.4 -0.07  0.22
-well_being_2_.3:books_used_.4 -0.12  0.24
-well_being_2_.4:books_used_.4 -0.12  0.24
+well_being_2_.0:books_used_.3 -0.10  0.05
+well_being_2_.1:books_used_.3 -0.09  0.12
+well_being_2_.2:books_used_.3 -0.06  0.15
+well_being_2_.3:books_used_.3 -0.11  0.10
+books_used_.4                 -0.36  0.65
+age_.0:books_used_.4          -0.02  0.01
+well_being_2_.0:books_used_.4 -0.10  0.05
+well_being_2_.1:books_used_.4 -0.05  0.15
+well_being_2_.2:books_used_.4 -0.10  0.08
+well_being_2_.3:books_used_.4 -0.12  0.10
+well_being_2_.4:books_used_.4 -0.09  0.14
 T = 4 ; N = 2159 ; dropped = 174 ; complete = 1985 
    t        V1
 1: 0 0.4775819
@@ -138,59 +176,51 @@ T = 4 ; N = 2159 ; dropped = 174 ; complete = 1985
 T = 4 
 [[1]]
                 books_used_.0          age_.0:books_used_.0 
-                        -0.31                          0.00 
-    wb2_mean_.0:books_used_.0 well_being_2_.0:books_used_.0 
-                         0.00                          0.04 
+                        -0.46                          0.00 
+well_being_2_.0:books_used_.0 
+                         0.02 
 
 [[2]]
                 books_used_.1          age_.0:books_used_.1 
-                        -0.41                         -0.01 
-    wb2_mean_.0:books_used_.1 well_being_2_.0:books_used_.1 
-                         0.06                          0.08 
-well_being_2_.1:books_used_.1 
-                         0.05 
+                        -0.39                         -0.01 
+well_being_2_.0:books_used_.1 well_being_2_.1:books_used_.1 
+                         0.05                         -0.03 
 
 [[3]]
                 books_used_.2          age_.0:books_used_.2 
                          0.41                          0.00 
-    wb2_mean_.0:books_used_.2 well_being_2_.0:books_used_.2 
-                        -0.05                         -0.02 
-well_being_2_.1:books_used_.2 well_being_2_.2:books_used_.2 
-                         0.11                          0.02 
+well_being_2_.0:books_used_.2 well_being_2_.1:books_used_.2 
+                        -0.05                          0.07 
+well_being_2_.2:books_used_.2 
+                        -0.04 
 
 [[4]]
                 books_used_.3          age_.0:books_used_.3 
-                         0.00                          0.01 
-    wb2_mean_.0:books_used_.3 well_being_2_.0:books_used_.3 
-                        -0.01                         -0.02 
-well_being_2_.1:books_used_.3 well_being_2_.2:books_used_.3 
-                        -0.06                          0.03 
-well_being_2_.3:books_used_.3 
-                         0.02 
+                         0.09                          0.01 
+well_being_2_.0:books_used_.3 well_being_2_.1:books_used_.3 
+                        -0.02                         -0.01 
+well_being_2_.2:books_used_.3 well_being_2_.3:books_used_.3 
+                        -0.01                          0.04 
 
                                2.5% 97.5%
-books_used_.0                 -0.65  0.02
+books_used_.0                 -0.72 -0.20
 age_.0:books_used_.0          -0.01  0.01
-wb2_mean_.0:books_used_.0     -0.04  0.05
-well_being_2_.0:books_used_.0 -0.07  0.13
-books_used_.1                 -0.79  0.03
-age_.0:books_used_.1          -0.02  0.00
-wb2_mean_.0:books_used_.1      0.00  0.11
-well_being_2_.0:books_used_.1 -0.05  0.20
-well_being_2_.1:books_used_.1 -0.10  0.18
-books_used_.2                  0.01  0.77
-age_.0:books_used_.2          -0.01  0.02
-wb2_mean_.0:books_used_.2     -0.10  0.01
-well_being_2_.0:books_used_.2 -0.15  0.12
-well_being_2_.1:books_used_.2 -0.03  0.24
-well_being_2_.2:books_used_.2 -0.12  0.17
-books_used_.3                 -0.31  0.30
+well_being_2_.0:books_used_.0 -0.02  0.07
+books_used_.1                 -0.75  0.00
+age_.0:books_used_.1          -0.02  0.01
+well_being_2_.0:books_used_.1  0.00  0.11
+well_being_2_.1:books_used_.1 -0.11  0.05
+books_used_.2                 -0.01  0.75
+age_.0:books_used_.2          -0.01  0.01
+well_being_2_.0:books_used_.2 -0.11  0.01
+well_being_2_.1:books_used_.2 -0.03  0.17
+well_being_2_.2:books_used_.2 -0.14  0.07
+books_used_.3                 -0.22  0.40
 age_.0:books_used_.3           0.00  0.02
-wb2_mean_.0:books_used_.3     -0.05  0.04
-well_being_2_.0:books_used_.3 -0.19  0.14
-well_being_2_.1:books_used_.3 -0.24  0.13
-well_being_2_.2:books_used_.3 -0.14  0.20
-well_being_2_.3:books_used_.3 -0.12  0.18
+well_being_2_.0:books_used_.3 -0.07  0.03
+well_being_2_.1:books_used_.3 -0.10  0.07
+well_being_2_.2:books_used_.3 -0.12  0.09
+well_being_2_.3:books_used_.3 -0.07  0.14
 T = 3 ; N = 2159 ; dropped = 163 ; complete = 1996 
    t        V1
 1: 0 0.4779559
@@ -200,42 +230,37 @@ T = 3 ; N = 2159 ; dropped = 163 ; complete = 1996
 T = 3 
 [[1]]
                 books_used_.0          age_.0:books_used_.0 
-                        -0.36                         -0.01 
-    wb2_mean_.0:books_used_.0 well_being_2_.0:books_used_.0 
-                         0.02                          0.02 
+                        -0.43                         -0.01 
+well_being_2_.0:books_used_.0 
+                         0.03 
 
 [[2]]
                 books_used_.1          age_.0:books_used_.1 
-                        -0.02                          0.00 
-    wb2_mean_.0:books_used_.1 well_being_2_.0:books_used_.1 
-                         0.00                          0.07 
-well_being_2_.1:books_used_.1 
-                         0.04 
+                         0.01                          0.01 
+well_being_2_.0:books_used_.1 well_being_2_.1:books_used_.1 
+                         0.00                         -0.05 
 
 [[3]]
                 books_used_.2          age_.0:books_used_.2 
                         -0.10                          0.00 
-    wb2_mean_.0:books_used_.2 well_being_2_.0:books_used_.2 
-                         0.02                         -0.02 
-well_being_2_.1:books_used_.2 well_being_2_.2:books_used_.2 
-                        -0.04                          0.08 
+well_being_2_.0:books_used_.2 well_being_2_.1:books_used_.2 
+                         0.01                         -0.01 
+well_being_2_.2:books_used_.2 
+                         0.07 
 
                                2.5% 97.5%
-books_used_.0                 -0.65 -0.06
+books_used_.0                 -0.67 -0.17
 age_.0:books_used_.0          -0.01  0.00
-wb2_mean_.0:books_used_.0     -0.02  0.07
-well_being_2_.0:books_used_.0 -0.06  0.11
-books_used_.1                 -0.37  0.34
-age_.0:books_used_.1          -0.01  0.01
-wb2_mean_.0:books_used_.1     -0.06  0.05
-well_being_2_.0:books_used_.1 -0.04  0.19
-well_being_2_.1:books_used_.1 -0.07  0.15
+well_being_2_.0:books_used_.0 -0.01  0.07
+books_used_.1                 -0.31  0.36
+age_.0:books_used_.1           0.00  0.02
+well_being_2_.0:books_used_.1 -0.06  0.05
+well_being_2_.1:books_used_.1 -0.11  0.01
 books_used_.2                 -0.43  0.20
 age_.0:books_used_.2          -0.01  0.01
-wb2_mean_.0:books_used_.2     -0.03  0.06
-well_being_2_.0:books_used_.2 -0.15  0.09
-well_being_2_.1:books_used_.2 -0.13  0.06
-well_being_2_.2:books_used_.2 -0.06  0.20
+well_being_2_.0:books_used_.2 -0.03  0.06
+well_being_2_.1:books_used_.2 -0.07  0.06
+well_being_2_.2:books_used_.2 -0.01  0.14
 T = 2 ; N = 2159 ; dropped = 141 ; complete = 2018 
    t        V1
 1: 0 0.4781962
@@ -244,28 +269,24 @@ T = 2 ; N = 2159 ; dropped = 141 ; complete = 2018
 T = 2 
 [[1]]
                 books_used_.0          age_.0:books_used_.0 
-                        -0.24                          0.00 
-    wb2_mean_.0:books_used_.0 well_being_2_.0:books_used_.0 
-                         0.00                         -0.05 
+                        -0.26                          0.00 
+well_being_2_.0:books_used_.0 
+                         0.01 
 
 [[2]]
                 books_used_.1          age_.0:books_used_.1 
-                        -0.09                          0.00 
-    wb2_mean_.0:books_used_.1 well_being_2_.0:books_used_.1 
-                         0.02                          0.04 
-well_being_2_.1:books_used_.1 
-                         0.03 
+                            0                             0 
+well_being_2_.0:books_used_.1 well_being_2_.1:books_used_.1 
+                            0                             0 
 
                                2.5% 97.5%
-books_used_.0                 -0.52  0.04
-age_.0:books_used_.0          -0.01  0.01
-wb2_mean_.0:books_used_.0     -0.04  0.05
-well_being_2_.0:books_used_.0 -0.13  0.03
-books_used_.1                 -0.36  0.18
+books_used_.0                 -0.49 -0.04
+age_.0:books_used_.0           0.00  0.01
+well_being_2_.0:books_used_.0 -0.03  0.04
+books_used_.1                 -0.24  0.22
 age_.0:books_used_.1          -0.01  0.01
-wb2_mean_.0:books_used_.1     -0.03  0.06
-well_being_2_.0:books_used_.1 -0.07  0.15
-well_being_2_.1:books_used_.1 -0.09  0.15
+well_being_2_.0:books_used_.1 -0.03  0.04
+well_being_2_.1:books_used_.1 -0.05  0.05
 T = 1 ; N = 2159 ; dropped = 112 ; complete = 2047 
    t        V1
 1: 0 0.4772838
@@ -273,13 +294,12 @@ T = 1 ; N = 2159 ; dropped = 112 ; complete = 2047
 T = 1 
 [[1]]
                 books_used_.0          age_.0:books_used_.0 
-                        -0.27                          0.00 
-    wb2_mean_.0:books_used_.0 well_being_2_.0:books_used_.0 
-                         0.02                          0.01 
+                        -0.30                          0.00 
+well_being_2_.0:books_used_.0 
+                         0.02 
 
                                2.5% 97.5%
-books_used_.0                 -0.48 -0.07
-age_.0:books_used_.0          -0.01  0.00
-wb2_mean_.0:books_used_.0     -0.01  0.05
-well_being_2_.0:books_used_.0 -0.06  0.08
-wloh@dekrook-ppw digital-wellbeing % 
+books_used_.0                 -0.49 -0.10
+age_.0:books_used_.0          -0.01  0.01
+well_being_2_.0:books_used_.0 -0.01  0.05
+There were 50 or more warnings (use warnings() to see the first 50)

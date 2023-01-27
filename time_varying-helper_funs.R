@@ -5,7 +5,8 @@ OneEst <- function(Data, # long format
                    Outcome_name,
                    Znames=NULL, # effect modifiers in SNMM
                    use.DR=TRUE,
-                   fit.ps="mle"
+                   fit.ps="mle",
+                   return.data=FALSE
                    ) {
   ## names cannot be "P" or "Ry" or contain "_."
   
@@ -65,7 +66,7 @@ OneEst <- function(Data, # long format
     # variable history
     tt.predictors <- c(
       sapply(Lnames,paste,0:tt,sep=timesep),        # covariate history
-      paste0(Outcome_name,timesep,0:max(0,(tt-1))), # outcome history
+      paste0(Outcome_name,timesep,0:tt),            # outcome history
       paste0(Treat_name,timesep,0:max(0,(tt-1)))    # treatment history
     )
     names(tt.predictors) <- NULL
@@ -149,5 +150,10 @@ OneEst <- function(Data, # long format
     res.fit[[tt+1]] <- list("PS"=ps.fit,"Outcome"=out.fit)
     rm(ps.fit,out.fit,psi.hat,tt.ps,tt.out)
   }
-  return(list("est"=res.coef,"formulae"=res.formulae,"fitted"=res.fit))
+  if (return.data==FALSE) {
+    return(list("est"=res.coef,"formulae"=res.formulae,"fitted"=res.fit))
+  } else {
+    return(list("est"=res.coef,"formulae"=res.formulae,"fitted"=res.fit,
+                "data.wide"=D))
+  }
 }

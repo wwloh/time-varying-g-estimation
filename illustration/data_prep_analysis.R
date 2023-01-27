@@ -2,6 +2,9 @@ rm(list=ls())
 library("data.table")
 
 ## prep data ##################################################################
+## save the below data file into a subfolder "osfstorage-archive"
+## data from: https://osf.io/cv2u9/files/osfstorage/60747466f6585f051b61b85e
+
 rawData <- readRDS("osfstorage-archive/processed_data.rds")
 rawData <- data.table(rawData)
 setkey(rawData)
@@ -16,7 +19,10 @@ rawData[,mean(books_used,na.rm=TRUE),by=wave]
 rawData[,mean(life_satisfaction,na.rm=TRUE),by=wave]
 
 # covariates
-Lnames <- c("gender","age",paste0("well_being_",1:2))
+Lnames <- c("gender","age",paste0("well_being_",1:2),
+            # add other media usage as possible confounders
+            "music_time","films_time","tv_time",
+            "games_time","magazines_time","audiobooks_time")
 
 # analysis ####################################################################
 source("../time_varying-helper_funs.R")
@@ -27,11 +33,24 @@ allData <- allData[,c("id","t",Lnames,
                       "books_used","life_satisfaction"), with=FALSE]
 setkey(allData)
 
+# inspect a single individual at random
+some.id <- sample(allData$id,1)
+allData[id==some.id]
+
+# grand mean-center age
+allData[, age := age - allData[, unique(age), by=id][,mean(V1,na.rm=TRUE)]]
+
+# well-being 2 at each time point t>0 as difference from baseline (t=0)
+allData[t==0, wb2_t0 := well_being_2]
+allData[, well_being_2 := well_being_2-.SD[t==0, well_being_2], by=id]
+allData[t==0, well_being_2 := wb2_t0]
+allData[, wb2_t0 := NULL]
+
+allData[id==some.id]
+rm(some.id)
+
 str(allData)
 summary(allData)
-
-# inspect a single individual at random
-allData[id==sample(allData$id,1)]
 
 ## consider outcome at each wave as end of study outcome in turn ##############
 res.list <- NULL
@@ -51,23 +70,15 @@ for (T_ in 5:1) {
   # check treatment prevalence at each time point
   print(Data[,mean(books_used,na.rm=TRUE),by=t])
   
-  # mean-center age
-  Data[, age := age - mean(age,na.rm=TRUE)]
-  # mean-center well-being at each time point 
-  ## mean needs a different name to be excluded from interaction with treatment
-  Data[,wb2_mean := mean(well_being_2,na.rm=TRUE),by=id]
-  Data[,well_being_2 := well_being_2 - wb2_mean,by=id]
-  setkey(Data)
-  
   res <- OneEst(Data,
-                T_=T_,c(Lnames,"wb2_mean"),
+                T_=T_,Lnames=Lnames,
                 Treat_name="books_used",Outcome_name="life_satisfaction",
-                Znames=c("age","wb2_mean","well_being_2"),
+                Znames=c("age","well_being_2"),
                 use.DR=TRUE)
   cat("T =", T_, "\n")
   print(lapply(res$est,round,2))
   
-  boot.res <- lapply(1:5000, function(bb) {
+  boot.res <- lapply(1:10000, function(bb) {
     bootOK <- FALSE
     while(!bootOK) {
       boot_id <- sort(unique(sample(all_id,N,replace=TRUE)))
@@ -75,9 +86,10 @@ for (T_ in 5:1) {
       setkey(boot_D)
       stm.boot <- tryCatch(system.time(
         boot_res <- OneEst(boot_D,
-                           T_=T_,c(Lnames,"wb2_mean"),
-                           Treat_name="books_used",Outcome_name="life_satisfaction",
-                           Znames=c("age","wb2_mean","well_being_2"),
+                           T_=T_,Lnames=Lnames,
+                           Treat_name="books_used",
+                           Outcome_name="life_satisfaction",
+                           Znames=c("age","well_being_2"),
                            use.DR=TRUE)
       )[3], error=function(cond) return(NA))
       if (!is.na(stm.boot)) {
@@ -115,3 +127,8 @@ res.table <- t(rbindlist(lapply(res.list, function(x) {
   }))
 }),fill=TRUE))
 xtable(res.table)
+
+# print summary tables of fitted outcome regression models
+lapply(res.list,function(one.res) 
+  lapply(one.res$res$fitted, function(one.res.fitted)
+    summary(one.res.fitted$Outcome)$coef))
