@@ -81,8 +81,13 @@ for (T_ in 5:1) {
   boot.res <- lapply(1:10000, function(bb) {
     bootOK <- FALSE
     while(!bootOK) {
-      boot_id <- sort(unique(sample(all_id,N,replace=TRUE)))
-      boot_D <- Data[id %in% boot_id]
+      # resample with replacement for bootstrap
+      boot_id <- sort(sample(all_id,N,replace=TRUE))
+      boot_D <- do.call(rbind,lapply(1:length(boot_id), function(ib) {
+        D.ib <- Data[id==boot_id[ib]]
+        D.ib[,id := ib]
+        return(D.ib)
+      }))
       setkey(boot_D)
       stm.boot <- tryCatch(system.time(
         boot_res <- OneEst(boot_D,
